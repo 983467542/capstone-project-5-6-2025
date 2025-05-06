@@ -73,6 +73,17 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     options.tableName = 'Users';
-    return queryInterface.dropTable(options);
+    try {
+      if (process.env.NODE_ENV === 'production') {
+        await queryInterface.sequelize.query(`
+          DROP TABLE IF EXISTS ${process.env.SCHEMA}."ChatMessages" CASCADE;
+          DROP TABLE IF EXISTS ${process.env.SCHEMA}."UserConnections" CASCADE;
+          DROP TABLE IF EXISTS ${process.env.SCHEMA}."GamePlays" CASCADE;
+        `);
+      }
+      return queryInterface.dropTable(options);
+    } catch (error) {
+      console.error('Error dropping Users table:', error);
+    }
   }
 };
