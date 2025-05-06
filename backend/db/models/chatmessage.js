@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'ChatMessage',
-    // tableName: 'ChatMessages',
+    tableName: 'ChatMessages',
     underscored: false,
     timestamps: true
   });

@@ -8,8 +8,9 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // options.tableName = "ChatMessages";
-    await queryInterface.createTable("ChatMessages", {
+    options.tableName = 'ChatMessages';
+    try {
+    await queryInterface.createTable('ChatMessages', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -71,9 +72,16 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
+  } catch (error) {
+    console.error('Error inserting chat messages:', error);
+  }
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "ChatMessages";
+    options.tableName = 'ChatMessages';
+    try {
     return queryInterface.dropTable(options);
+  } catch (error) {
+    console.error('Error deleting chat messages:', error);
+  }
   }
 };
