@@ -47,13 +47,34 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     options.tableName = 'ChatMessages';
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      [Op.or]: [
-        { content: 'Hey, how are you?' },
-        { content: 'I\'ll see you on Saturday.' },
-        { content: 'Something came up. Let\'s meet next week.' }
-      ]
-    }, {});
+    try {
+      // For PostgreSQL
+      if (process.env.NODE_ENV === 'production') {
+        const tableExists = await queryInterface.sequelize.query(
+          `SELECT EXISTS (
+            SELECT FROM information_schema.tables 
+            WHERE table_schema = '${process.env.SCHEMA}'
+            AND table_name = 'ChatMessages'
+          );`,
+          { type: Sequelize.QueryTypes.SELECT }
+        );
+
+        if (!tableExists[0].exists) {
+          console.log('ChatMessages table does not exist, skipping deletion');
+          return;
+        }
+      }
+
+      const Op = Sequelize.Op;
+      return queryInterface.bulkDelete(options, {
+        [Op.or]: [
+          { content: 'Hey, how are you?' },
+          { content: 'I\'ll see you on Saturday.' },
+          { content: 'Something came up. Let\'s meet next week.' }
+        ]
+      }, {});
+    } catch (error) {
+      console.log('Error in chat messages seeder down method:', error.message);
+    }
   }
 };
