@@ -19,13 +19,27 @@ module.exports = {
       user_1_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'Users', key: 'id' },
+        // references: { model: 'Users', key: 'id' },
+        references: { 
+          model: {
+            tableName: 'Users',
+            schema: process.env.NODE_ENV === 'production' ? process.env.SCHEMA : undefined
+          }, 
+          key: 'id' 
+        },
         onDelete: 'CASCADE'
       },
       user_2_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'Users', key: 'id' },
+        // references: { model: 'Users', key: 'id' },
+        references: { 
+          model: {
+            tableName: 'Users',
+            schema: process.env.NODE_ENV === 'production' ? process.env.SCHEMA : undefined
+          }, 
+          key: 'id' 
+        },
         onDelete: 'CASCADE'
       },
       connectionStatus: {

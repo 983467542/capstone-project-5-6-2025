@@ -19,13 +19,27 @@ module.exports = {
       senderId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'Users', key: 'id' },
+        // references: { model: 'Users', key: 'id' },
+        references: { 
+          model: {
+            tableName: 'Users',
+            schema: process.env.NODE_ENV === 'production' ? process.env.SCHEMA : undefined
+          },
+          key: 'id' 
+        },
         onDelete: 'CASCADE'
       },
       receiverId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'Users', key: 'id' },
+        // references: { model: 'Users', key: 'id' },
+        references: { 
+          model: {
+            tableName: 'Users',
+            schema: process.env.NODE_ENV === 'production' ? process.env.SCHEMA : undefined
+          },
+          key: 'id' 
+        },
         onDelete: 'CASCADE'
       },
       content: {
