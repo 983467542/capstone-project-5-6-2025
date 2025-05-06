@@ -38,6 +38,16 @@ module.exports = (sequelize, DataTypes) => {
     editedAt: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    deletedBySender: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
+    deletedByReceiver: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   }, {
     sequelize,
