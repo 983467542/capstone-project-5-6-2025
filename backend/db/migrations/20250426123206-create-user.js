@@ -8,12 +8,13 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = "Users";
+    // options.tableName = "Users";
     await queryInterface.createTable('Users', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true
       },
       fullName: {
         type: Sequelize.STRING,

@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = "ChatMessages";
+    // options.tableName = "ChatMessages";
     await queryInterface.createTable("ChatMessages", {
       id: {
         type: Sequelize.INTEGER,
@@ -19,13 +19,13 @@ module.exports = {
       senderId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'id' },
+        references: { model: 'Users', key: 'id' },
         onDelete: 'CASCADE'
       },
       receiverId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'id' },
+        references: { model: 'Users', key: 'id' },
         onDelete: 'CASCADE'
       },
       content: {

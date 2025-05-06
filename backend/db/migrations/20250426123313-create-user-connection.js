@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = "UserConnections";
+    // options.tableName = "UserConnections";
     await queryInterface.createTable('UserConnections', {
       id: {
         type: Sequelize.INTEGER,
@@ -19,13 +19,13 @@ module.exports = {
       user_1_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'id' },
+        references: { model: 'Users', key: 'id' },
         onDelete: 'CASCADE'
       },
       user_2_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'id' },
+        references: { model: 'Users', key: 'id' },
         onDelete: 'CASCADE'
       },
       connectionStatus: {

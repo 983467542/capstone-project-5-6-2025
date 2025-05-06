@@ -20,14 +20,14 @@ module.exports = (sequelize, DataTypes) => {
     senderId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'users',
+        model: 'Users',
         key: 'id'
       }
     },
     receiverId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'users',
+        model: 'Users',
         key: 'id'
       }
     },
